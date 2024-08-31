@@ -9,10 +9,13 @@ from django.utils.html import format_html_join
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
     list_display = ["name", "display_course_intakes", entry_operations]
+    search_fields = ["name"]
+
     @admin.display(description="Intakes")
     def display_course_intakes(self, course):
         """Display course intakes in hyperlinks which are separated by commas.
         Each intake is represented by its own start date.
+        TODO: limit the number of intakes or refine content table to avoid redudant info.
         """
         course_intakes = course.intakes.all()
         return format_html_join(
@@ -28,8 +31,8 @@ class CourseAdmin(admin.ModelAdmin):
 @admin.register(Intake)
 class IntakeAdmin(admin.ModelAdmin):
     list_display = ["display_intake_course", "start_date", "end_date", entry_operations]
-    list_filter = ["course__name"]
-    search_fields = ["course__name"]
+    list_filter = ["course__name", "start_date", "end_date"]
+    search_fields = ["course__name"] # TODO: Find out how to apply autocomplete on search
 
     @admin.display(description="Course")
     def display_intake_course(self, intake):
