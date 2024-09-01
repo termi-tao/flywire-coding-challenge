@@ -11,7 +11,6 @@ class ListCourses(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
-
     def get(self, request) -> Response:
         # TODO: Integrate pagination when model expands
         queryset = Course.objects.all()

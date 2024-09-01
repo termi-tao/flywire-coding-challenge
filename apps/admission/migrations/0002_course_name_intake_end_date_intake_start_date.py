@@ -6,23 +6,23 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('admission', '0001_initial'),
+        ("admission", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='course',
-            name='name',
-            field=models.CharField(default='unnamed-course', max_length=50),
+            model_name="course",
+            name="name",
+            field=models.CharField(default="unnamed-course", max_length=50),
         ),
         migrations.AddField(
-            model_name='intake',
-            name='end_date',
-            field=models.DateField(default='1800-12-31'),
+            model_name="intake",
+            name="end_date",
+            field=models.DateField(default="1800-12-31"),
         ),
         migrations.AddField(
-            model_name='intake',
-            name='start_date',
-            field=models.DateField(default='1800-01-01'),
+            model_name="intake",
+            name="start_date",
+            field=models.DateField(default="1800-01-01"),
         ),
     ]

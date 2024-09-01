@@ -6,7 +6,7 @@ from apps.admission.models import Intake
 class IntakeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Intake
-        fields = ['id', 'start_date', 'end_date']  
+        fields = ["id", "start_date", "end_date"]
 
 
 class CourseSerializer(serializers.ModelSerializer):

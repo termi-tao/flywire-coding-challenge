@@ -7,13 +7,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('admission', '0002_course_name_intake_end_date_intake_start_date'),
+        ("admission", "0002_course_name_intake_end_date_intake_start_date"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='course',
-            name='name',
-            field=models.CharField(default='unnamed-course', max_length=50, unique=True),
+            model_name="course",
+            name="name",
+            field=models.CharField(
+                default="unnamed-course", max_length=50, unique=True
+            ),
         ),
     ]

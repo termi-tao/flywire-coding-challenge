@@ -12,28 +12,26 @@ class ListCoursesTests(APITestCase):
         self.url = reverse("api:list_courses")
         self.courses = Course.objects.all()
         # create a test user for authentication purpose
-        self.user = User.objects.create_user(username="testuser", password="testpassword")
-
+        self.user = User.objects.create_user(
+            username="testuser", password="testpassword"
+        )
 
     def tearDown(self):
         Course.objects.all().delete()
-
 
     def test_authenticated_access(self):
         self.client.force_authenticate(user=self.user)
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-
     def test_unauthenticated_access(self):
         self.client.force_authenticate(user=None)
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
-
 
     def test_list_course(self):
         self.client.force_authenticate(user=self.user)
         course_count = len(self.courses)
         response = self.client.get(self.url)
         self.assertEqual(course_count, len(response.data))
-        self.assertEqual(response.data[0]["name"], "INFT101") # per api_test_data.json
+        self.assertEqual(response.data[0]["name"], "INFT101")  # per api_test_data.json

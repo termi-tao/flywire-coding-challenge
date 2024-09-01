@@ -40,5 +40,5 @@ class IntakeAdmin(admin.ModelAdmin):
     def display_intake_course(self, intake):
 
         return get_view_link(intake.course, intake.course.name, "")
-    
+
     fields = ["course", "start_date", "end_date"]
