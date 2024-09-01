@@ -15,7 +15,7 @@ def get_view_link(obj: admin.ModelAdmin, text: str ="View", css_class: str ="vie
 
 
 def get_delete_link(obj: admin.ModelAdmin, text: str ="Delete", css_class: str ="deletelink") -> str:
-    return get_link(obj, "change", text, css_class)
+    return get_link(obj, "delete", text, css_class)
 
 
 def get_link(obj: admin.ModelAdmin, action: str , text: str , css_class: str ) -> str:
