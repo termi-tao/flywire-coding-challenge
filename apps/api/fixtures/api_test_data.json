@@ -1,0 +1,67 @@
+[
+    {
+      "model": "admission.course",
+      "pk": 1,
+      "fields": {
+        "name": "INFT101"
+      }
+    },
+    {
+      "model": "admission.course",
+      "pk": 2,
+      "fields": {
+        "name": "MATH101"
+      }
+    },
+    {
+      "model": "admission.course",
+      "pk": 3,
+      "fields": {
+        "name": "SYST101"
+      }
+    },
+    {
+      "model": "admission.course",
+      "pk": 4,
+      "fields": {
+        "name": "ABCD101"
+      }
+    },
+    {
+      "model": "admission.intake",
+      "pk": 1,
+      "fields": {
+        "course": 1,
+        "start_date": "2024-01-01",
+        "end_date": "2024-06-01"
+      }
+    },
+    {
+      "model": "admission.intake",
+      "pk": 1,
+      "fields": {
+        "course": 1,
+        "start_date": "2024-01-01",
+        "end_date": "2024-06-01"
+      }
+    },
+    {
+      "model": "admission.intake",
+      "pk": 2,
+      "fields": {
+        "course": 1,
+        "start_date": "2024-01-01",
+        "end_date": "2024-06-01"
+      }
+    },
+    {
+      "model": "admission.intake",
+      "pk": 2,
+      "fields": {
+        "course": 2,
+        "start_date": "2024-01-01",
+        "end_date": "2024-06-01"
+      }
+    }
+  ]
+  
