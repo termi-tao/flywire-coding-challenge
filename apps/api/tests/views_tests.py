@@ -15,6 +15,10 @@ class ListCoursesTests(APITestCase):
         self.user = User.objects.create_user(username="testuser", password="testpassword")
 
 
+    def tearDown(self):
+        Course.objects.all().delete()
+
+
     def test_authenticated_access(self):
         self.client.force_authenticate(user=self.user)
         response = self.client.get(self.url)
