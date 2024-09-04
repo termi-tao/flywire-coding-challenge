@@ -7,7 +7,6 @@ from rest_framework.response import Response
 from rest_framework.request import Request
 
 
-
 class ListCourses(APIView):
     # TODO: May use a custom authenticator to enable authentication throttling and such
     authentication_classes = [TokenAuthentication]

@@ -1,9 +1,11 @@
 from rest_framework.test import APITestCase
-from apps.admission.models import Course
+from apps.admission.models import Course, Intake
 from django.core.management import call_command
 from rest_framework import status
 from django.contrib.auth.models import User
 from django.urls import reverse
+from apps.api.views import ListCourses
+from rest_framework.response import Response
 
 
 class ListCoursesTests(APITestCase):
@@ -18,6 +20,7 @@ class ListCoursesTests(APITestCase):
 
     def tearDown(self):
         Course.objects.all().delete()
+        Intake.objects.all().delete()
 
     def test_authenticated_access(self):
         self.client.force_authenticate(user=self.user)
@@ -35,3 +38,8 @@ class ListCoursesTests(APITestCase):
         response = self.client.get(self.url)
         self.assertEqual(course_count, len(response.data))
         self.assertEqual(response.data[0]["name"], "INFT101")  # per api_test_data.json
+
+    def test_endpoint(self):
+        view = ListCourses()
+        response = view.get({})
+        self.assertIsInstance(response, Response)
