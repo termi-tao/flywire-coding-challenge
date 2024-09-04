@@ -13,6 +13,7 @@ class Course(models.Model):
 class Intake(models.Model):
     """Note: Should there be a constrain on the intake overlaps?
     e.g. a course should have only one intake for a period of time.
+    Also, should we allow a course having exact the same intakes?
     """
 
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="intakes")
@@ -28,3 +29,7 @@ class Intake(models.Model):
             raise ValidationError(
                 {"end_date": "End date must be after the start date."}
             )
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Course, Intake
-from .utils import entry_operations, get_admin_url, get_view_link
+from .utils import generate_admin_operations_links, get_admin_url, get_view_link
 from django.utils.html import format_html_join
 
 # Register your models here.
@@ -9,7 +9,7 @@ from django.utils.html import format_html_join
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
     # TODO: it'd be handy to have a filter of intakes' start_date/end_date
-    list_display = ["name", "display_course_intakes", entry_operations]
+    list_display = ["name", "display_course_intakes", generate_admin_operations_links]
     search_fields = ["name"]
 
     @admin.display(description="Intakes (Start Date)")
@@ -31,7 +31,12 @@ class CourseAdmin(admin.ModelAdmin):
 
 @admin.register(Intake)
 class IntakeAdmin(admin.ModelAdmin):
-    list_display = ["display_intake_course", "start_date", "end_date", entry_operations]
+    list_display = [
+        "display_intake_course",
+        "start_date",
+        "end_date",
+        generate_admin_operations_links,
+    ]
     list_filter = ["course__name", "start_date", "end_date"]
     # TODO: Find out how to apply autocomplete on search
     search_fields = ["course__name"]

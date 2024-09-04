@@ -24,11 +24,12 @@ def get_delete_link(
 
 def get_link(obj: admin.ModelAdmin, action: str, text: str, css_class: str) -> str:
     url = get_admin_url(obj, action)
+    # TODO: avoid appending css class while css_class is empty
     return format_html("<a class='{}' href='{}'>{}</a>", css_class, url, text)
 
 
 @admin.display(description="Operations")
-def entry_operations(obj: admin.ModelAdmin) -> str:
+def generate_admin_operations_links(obj: admin.ModelAdmin) -> str:
     return format_html(
         "<span>{}</span> | <span>{}</span>", get_view_link(obj), get_delete_link(obj)
     )
