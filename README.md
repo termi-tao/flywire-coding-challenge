@@ -1,62 +1,37 @@
-**SL-101**
+# Implementation Documentation
+The challenge is fully completed and the acceptance criteria is met. This documentation provides a brief introduction of reviewing this challenge to optimize the experience. Meanwhile, the design mindset will also be briefly covered.
 
-**Title:** Manage Courses and Intakes with API Endpoint
+### Configuration
+The admin page and list course API is good to go without any configuration. To streamline your review process, it's recommended to follow the below steps to set up the database as well as creating some mock data.
+ 1. Run `docker compose up -d` to bring up the server.
+ 2. Then run `docker compose exec django bash` to access the container's cli and run `python manage.py migrate` to create a database.
+ 3. [Optional] Run `python manage.py seed` to create mock courses and intakes. Alternatively, you can also create them on the admin site interface.
+ 4. Create a super user for later testing steps by running `python manage.py createsuperuser`. It will ask you to for a username, email, and password.
 
-**Description:**
+### Admin Site Interface
+The admin site interface supports an admin to view/manage courses and intakes. A ***search menu*** and ***filter bar*** are provided on Courses/Intakes page to reduce the complexity of finding specific entities. Good UX, happy users!
 
-As an Admin user,
-I want to have the ability to create and manage courses and their associated intakes within the Django Admin interface,
-so that I can efficiently organize and update course offerings.
+***Courses Page***
+The courses page shows the below attributes of courses:
+ - Course name
+ - Intakes - represented by start dates and they are embedded into a comma separated string. By clicking on each intake will redirect you to the ***intake*** change page.
+ - ***View***/***Delete*** buttons
 
-Additionally, I need an API endpoint that provides a list of all available courses along with their respective intakes,
-so that this data can be accessed programmatically for integration with other systems or for front-end display.
+***Intakes Page***
+The intakes page shows the below attributes of intakes:
+ - Relevant course of an intake which redirect admin to course detail page
+ - Start date and end date
+ - ***View***/***Delete*** buttons
 
-**Acceptance Criteria:**
+### REST API
+You are welcome to import the Postman collection that I've attached in the responding email as a kickstart of the API testing process. This collection has two requests to the ***authentication*** and ***list_courses*** endpoints.
 
-- [ ] A course has a unique `id` and a `name`
-- [ ] An intake has a unique `id`, a `start_date`, and an `end_date`
-- [ ] A course can have multiple intakes associated with it
-- [ ] Ability to create/manage courses within the Django Admin interface
-- [ ] Ability to create/manage intakes within the Django Admin interface
-- [ ] `/api/admissions/courses/` API endpoint that provides a list of all available courses along with their respective intakes
-- [ ] Access to this endpoint has to be authenticated using [DRF token](https://www.django-rest-framework.org/api-guide/authentication/#tokenauthentication)
-- [ ] Unit tests to make sure the endpoint behaves as intended
+Note: I have set up a pre-request script that acquires token before sending out the GET ***list_courses*** request. You should replace it with your own credentials (admin username and password that you created earlier) instead in the beginning of the script.
 
-If you have any ideas for enhancing your implementation but don't have the time or aren't sure how to achieve them in Django, don't worry.
-You're encouraged to note them as comments in the code or in a separate document.
+For the time being, the ***list_courses*** endpoint returns all the courses and their intakes. Ideally, there should be pagination and filtering (e.g. exclude courses without intakes) implemented depending on the requirements.
 
-**Getting Started**
+As the authentication endpoint, having ***access control levels*** is needed in later implementation too to improve system security.
 
-Please use the boilerplate code provided as a starting point. The code has 3 parts:
-- `apps/admission/` - this is where you'll define the models and the associated Django admins
-- `apps/api/` - this is where you'll define the DRF view, serializers, and relevant unit tests
-- `config/` - this is where you'll find the project's settings and URL conf
-
-**With Docker**
-
-- Install docker https://docs.docker.com/engine/install/
-- Install docker compose https://docs.docker.com/compose/install/
-- Build docker image and start the container:
-```shell
-docker compose up
-```
-- Run unit tests:
-```shell
-docker compose run --rm django pytest
-```
-
-**Without Docker**
-
-- Install pipenv https://pipenv.pypa.io/en/latest/installation.html
-- Install dependencies:
-```shell
-pipenv install --deploy --dev
-```
-- Run the application:
-```shell
-pipenv run ./manage.py runserver 0.0.0.0:8000
-```
-- Run unit tests:
-```shell
-pipenv run pytest
-```
+### Unit tests
+This is system is proudly implemented based on Test Driven Development principle, all the core modules have 100% unit test coverage and overall 96% coverage for the whole project (per [Python Coverage](https://coverage.readthedocs.io/en/7.6.1/)). I have made a minor directory restructuring for keeping a neat project structure, now you may find these tests in `apps/admission/tests` and `apps/api/tests` folders. A test fixture file `apps/fixtures/api_test_data.json` was also created for mocking purpose.
+To test, simply run `docker  compose  run  --rm  django  pytest`.
